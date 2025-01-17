@@ -1,10 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://blm3bwr3xhdf2"]
 
 [ext_resource type="Script" path="res://components/worlds/world_1.gd" id="1_k2qyg"]
-[ext_resource type="PackedScene" uid="uid://cr2jawc3qtglt" path="res://components/pack_opening/pack_opening.tscn" id="2_5jgjl"]
+[ext_resource type="PackedScene" uid="uid://bxbr0cxp3ndol" path="res://components/pack_opening/pack.tscn" id="2_3t7cw"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_k2qyg")
 
-[node name="PackOpening" parent="." instance=ExtResource("2_5jgjl")]
-position = Vector2(228, 135)
+[node name="WorldCenter" type="Marker2D" parent="."]
+position = Vector2(240, 133)
+
+[node name="pack" parent="." node_paths=PackedStringArray("CENTER_OF_WORLD") instance=ExtResource("2_3t7cw")]
+position = Vector2(241, 135)
+CENTER_OF_WORLD = NodePath("../WorldCenter")

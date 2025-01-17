@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxbr0cxp3ndol"]
+
+[ext_resource type="Script" path="res://components/pack_opening/pack.gd" id="1_eiw67"]
+[ext_resource type="Texture2D" uid="uid://djkp42wwrlfmj" path="res://assets/defaults/packs/card_pack_color.png" id="2_hx47p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afg4i"]
+size = Vector2(32, 32)
+
+[node name="pack" type="StaticBody2D"]
+script = ExtResource("1_eiw67")
+
+[node name="PackSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_hx47p")
+
+[node name="PackCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_afg4i")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

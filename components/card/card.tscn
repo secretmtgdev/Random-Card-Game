@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2jvsqqjm1kbl"]
+[gd_scene load_steps=12 format=3 uid="uid://d2jvsqqjm1kbl"]
 
 [ext_resource type="Script" path="res://components/card/card.gd" id="1_dirnw"]
 [ext_resource type="Texture2D" uid="uid://c6yflidgob86h" path="res://assets/cards/draw/card_draw_2.png" id="2_l7f1y"]
-[ext_resource type="Texture2D" uid="uid://d0rtt1jbpa6ag" path="res://assets/defaults/card/card_back.png" id="2_lp2ya"]
+[ext_resource type="Texture2D" uid="uid://cbyua5n3e3dsl" path="res://assets/defaults/card/card_back_color.png" id="2_un1me"]
+[ext_resource type="AudioStream" uid="uid://dgy2rqsg6n0k" path="res://assets/audio/card_flip_v1.ogg" id="4_li117"]
 
 [sub_resource type="Animation" id="Animation_du5h7"]
 length = 0.001
@@ -31,8 +32,8 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_0jkgu"]
-resource_name = "flip"
+[sub_resource type="Animation" id="Animation_7ii6c"]
+resource_name = "back"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -41,22 +42,10 @@ tracks/0/path = NodePath("CardSpriteContainer/CardFront:z_index")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(-0.0333333, 0.233333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, -1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CardSpriteContainer:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.1, 1), Vector2(1, 1)]
+"values": [-1]
 }
 
 [sub_resource type="Animation" id="Animation_r17jm"]
@@ -87,8 +76,8 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(0.1, 1), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_7ii6c"]
-resource_name = "back"
+[sub_resource type="Animation" id="Animation_0jkgu"]
+resource_name = "flip"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -97,10 +86,22 @@ tracks/0/path = NodePath("CardSpriteContainer/CardFront:z_index")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(-0.0333333, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [-1]
+"values": [0, -1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardSpriteContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 1), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_cpys2"]
@@ -143,7 +144,7 @@ libraries = {
 texture_filter = 1
 
 [node name="CardBack" type="Sprite2D" parent="CardSpriteContainer"]
-texture = ExtResource("2_lp2ya")
+texture = ExtResource("2_un1me")
 
 [node name="CardFront" type="Sprite2D" parent="CardSpriteContainer"]
 texture = ExtResource("2_l7f1y")
@@ -151,5 +152,8 @@ texture = ExtResource("2_l7f1y")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_tpbiv")
+
+[node name="CardFlipAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_li117")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -15,3 +15,7 @@ enum GameMode {
 	NORMAL,
 	ENDLESS
 }
+
+const CARD_COLORS = ["RED", "GREEN", "BLUE", "YELLOW", "WILD"]
+const CARD_TYPES = ["DRAW_TWO"]
+const WILD_CARD_TYPES = ["BASIC", "DRAW_FOUR"]
