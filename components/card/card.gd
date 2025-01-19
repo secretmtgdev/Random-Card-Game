@@ -1,4 +1,4 @@
-extends StaticBody2D
+class_name Card extends StaticBody2D
 
 @onready var card_animation_player: AnimationPlayer = $CardAnimationPlayer
 @onready var card_front: Sprite2D = $CardSpriteContainer/CardFront
@@ -7,11 +7,14 @@ extends StaticBody2D
 var animation_scalar = 2.0
 var state = Constants.FlipState.IDLE
 var face = Constants.CardFace.FRONT
-var has_been_revealed = false
+var _has_been_revealed = false
 
 # needs to be called once the component is loaded into the tree
 func set_card_front(image) -> void:
 	card_front.texture = image
+	
+func is_card_revealed() -> bool:
+	return _has_been_revealed
 
 func _ready() -> void:
 	input_pickable = true
@@ -29,9 +32,9 @@ func flip_card() -> void:
 	elif state == Constants.FlipState.IDLE and face == Constants.CardFace.BACK or state == Constants.FlipState.FLIP_FORWARD:
 		state = Constants.FlipState.FLIP_BACKWARD
 		card_animation_player.play("back_flip")
-		if not has_been_revealed:
+		if not _has_been_revealed:
 			SignalManager.reveal_card.emit()
-		has_been_revealed = true
+		_has_been_revealed = true
 	_set_state()
 
 func _set_state() -> void:

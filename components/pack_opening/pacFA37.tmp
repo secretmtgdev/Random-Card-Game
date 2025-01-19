@@ -28,8 +28,3 @@ position = Vector2(-40, 24)
 [node name="SeventhCard" type="Marker2D" parent="Waypoints"]
 
 [node name="Cards" type="Node2D" parent="."]
-
-[node name="CardAnimationTimer" type="Timer" parent="."]
-wait_time = 0.3
-
-[connection signal="timeout" from="CardAnimationTimer" to="." method="_on_card_animation_timer_timeout"]
