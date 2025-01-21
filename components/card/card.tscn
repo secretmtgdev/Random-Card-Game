@@ -147,6 +147,7 @@ texture_filter = 1
 texture = ExtResource("2_un1me")
 
 [node name="CardFront" type="Sprite2D" parent="CardSpriteContainer"]
+visible = false
 texture = ExtResource("2_l7f1y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

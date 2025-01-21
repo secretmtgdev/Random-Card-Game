@@ -3,11 +3,12 @@ extends StaticBody2D
 @export var CENTER_OF_WORLD: Marker2D
 @onready var pack_sprite: Sprite2D = $PackSprite
 @onready var pack_collider: CollisionShape2D = $PackCollider
+@onready var open_pack_animator: AnimationPlayer = $OpenPackAnimator
 
 func _ready() -> void:
 	input_pickable = true
 	SignalManager.finished_opening_pack.connect(handle_finished_pack)
-
+	
 func handle_finished_pack() -> void:
 	print("Pack opened!")
 
@@ -23,4 +24,9 @@ func open_pack() -> void:
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			open_pack()
+			open_pack_animator.play("open_pack")
+
+
+func _on_open_pack_animator_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "open_pack":
+		open_pack()

@@ -25,6 +25,8 @@ func _ready() -> void:
 		card_animation_player.play("back")
 	
 func flip_card() -> void:
+	if not card_front.visible:
+		card_front.visible = true
 	card_flip_audio.play(1)
 	if state == Constants.FlipState.IDLE and face == Constants.CardFace.FRONT or state == Constants.FlipState.FLIP_BACKWARD:
 		state = Constants.FlipState.FLIP_FORWARD
@@ -47,9 +49,9 @@ func _set_state() -> void:
 			state = Constants.FlipState.FLIP_BACKWARD
 
 func set_card_face(cardFace: Constants.CardFace) -> void:
-	face = cardFace
-
+	face = cardFace	
+	
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:			
 			flip_card()
