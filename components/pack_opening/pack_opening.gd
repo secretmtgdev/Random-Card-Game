@@ -12,27 +12,48 @@ var flipping_all_cards = false
 var cur_cards = []
 var cur_card_index = 0
 
+var _move_speed = 200
+var _moved_cards = 0
+var _waypoints = []
+
 func _ready() -> void:
 	cards_to_open = waypoints.get_child_count()
+	_waypoints = waypoints.get_children()
 	_load_cards()
 	SignalManager.reveal_card.connect(_handle_card_reveal)
 	
-func _process(_delta: float) -> void:	
+func _process(delta: float) -> void:	
 	if not flipping_all_cards and Input.is_action_just_pressed("auto_open"):
 		_flip_all_cards()
 		
 	elif flipping_all_cards and Input.is_action_just_pressed("auto_open"):
 		_stop_auto_flip()
+		
+	if _moved_cards < len(cur_cards):
+		_move_cards_to_waypoints(delta)
 
 func _load_cards() -> void:
-	for waypoint in waypoints.get_children():
+	for waypoint in _waypoints:
 		var card = ComponentLoader.CARD.instantiate()
-		card.position = (waypoint as Marker2D).position
+		card.position = (_waypoints[-1] as Marker2D).position
 		card.set_card_face(Constants.CardFace.BACK)
 		cards.add_child(card)
 		cur_cards.append(card)
 		card.set_card_front(Utils.get_random_card())
 		
+func _move_cards_to_waypoints(delta: float) -> void:
+	for i in range(len(cur_cards)):
+		if not _waypoints[i]:
+			continue
+			
+		var card = cur_cards[i]
+		var waypoint = _waypoints[i]
+		if card.position != (waypoint as Marker2D).position:
+			card.position = card.position.move_toward((waypoint as Marker2D).position, delta * _move_speed)
+		else:
+			_moved_cards += 1
+			_waypoints[i] = null # lazy deletion 
+	
 func _flip_all_cards() -> void:
 	if cards.get_child_count() == 0:
 		return
