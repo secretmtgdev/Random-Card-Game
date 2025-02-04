@@ -39,7 +39,9 @@ func _load_cards() -> void:
 		card.set_card_face(Constants.CardFace.BACK)
 		cards.add_child(card)
 		cur_cards.append(card)
-		card.set_card_front(Utils.get_random_card())
+		var random_card = Utils.get_random_card()
+		card.set_card_front(random_card.image)
+		card.set_card_data(random_card.details)
 		
 func _move_cards_to_waypoints(delta: float) -> void:
 	for i in range(len(cur_cards)):

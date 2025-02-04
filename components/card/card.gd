@@ -8,10 +8,14 @@ var animation_scalar = 2.0
 var state = Constants.FlipState.IDLE
 var face = Constants.CardFace.FRONT
 var _has_been_revealed = false
+var card_data
 
 # needs to be called once the component is loaded into the tree
 func set_card_front(image) -> void:
 	card_front.texture = image
+	
+func set_card_data(cardData) -> void:
+	card_data = cardData
 	
 func is_card_revealed() -> bool:
 	return _has_been_revealed

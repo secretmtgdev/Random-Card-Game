@@ -22,6 +22,7 @@ GameManager="*res://singletons/GameManager.gd"
 ComponentLoader="*res://singletons/ComponentLoader.gd"
 SignalManager="*res://singletons/SignalManager.gd"
 ImageLoader="*res://singletons/ImageLoader.gd"
+CardDetails="*res://singletons/CardDetails.gd"
 Utils="*res://singletons/Utils.gd"
 
 [display]
